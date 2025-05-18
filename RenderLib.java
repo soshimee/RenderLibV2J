@@ -33,7 +33,7 @@ public class RenderLib {
 		GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 		GlStateManager.translate(x - w / 2 - renderManager.viewerPosX, y - renderManager.viewerPosY, z - w / 2 - renderManager.viewerPosZ);
 		GlStateManager.color(red, green, blue, alpha);
-		worldRenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION_TEX);
+		worldRenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION);
 		worldRenderer.pos(0, 0, 0).endVertex();
 		worldRenderer.pos(w, 0, 0).endVertex();
 		worldRenderer.pos(w, h, 0).endVertex();
@@ -121,7 +121,7 @@ public class RenderLib {
 		GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 		GlStateManager.translate(x - w / 2 - renderManager.viewerPosX, y - renderManager.viewerPosY, z - w / 2 - renderManager.viewerPosZ);
 		GlStateManager.color(red, green, blue, alpha);
-		worldRenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION_TEX);
+		worldRenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION);
 		worldRenderer.pos(0, 0, 0).endVertex();
 		worldRenderer.pos(0, h, 0).endVertex();
 		worldRenderer.pos(0, th, 0).endVertex();
@@ -154,9 +154,6 @@ public class RenderLib {
 	}
 
 	public static void drawSphere(double x, double y, double z, float radius, int slices, int stacks, float rot1, float rot2, float rot3, float r, float g, float b, float a, boolean phase, boolean linemode) {
-		x -= renderManager.viewerPosX;
-		y -= renderManager.viewerPosY;
-		z -= renderManager.viewerPosZ;
 		GlStateManager.pushMatrix();
 		GL11.glLineWidth(2.0F);
 		GlStateManager.disableCull();
@@ -166,10 +163,10 @@ public class RenderLib {
 		GlStateManager.disableTexture2D();
 		if (phase) GlStateManager.disableDepth();
 		GlStateManager.color(r, g, b, a);
-		GlStateManager.translate(x, y, z);
-		GlStateManager.rotate(rot1, 1, 0, 0);
-		GlStateManager.rotate(rot2, 0, 0, 1);
-		GlStateManager.rotate(rot3, 0, 1, 0);
+		GlStateManager.translate(x - renderManager.viewerPosX, y - renderManager.viewerPosY, z - renderManager.viewerPosZ);
+//		GlStateManager.rotate(rot1, 1, 0, 0);
+//		GlStateManager.rotate(rot2, 0, 0, 1);
+//		GlStateManager.rotate(rot3, 0, 1, 0);
 		sphere.setDrawStyle(linemode ? GLU.GLU_LINE : GLU.GLU_FILL);
 		sphere.draw(radius, slices, stacks);
 		GlStateManager.enableCull();
@@ -181,9 +178,6 @@ public class RenderLib {
 	}
 
 	public static void drawCyl(double x, double y, double z, float baseRadius, float topRadius, float height, int slices, int stacks, float rot1, float rot2, float rot3, float r, float g, float b, float a, boolean phase, boolean linemode) {
-		x -= renderManager.viewerPosX;
-		y -= renderManager.viewerPosY;
-		z -= renderManager.viewerPosZ;
 		GlStateManager.pushMatrix();
 		GL11.glLineWidth(2.0F);
 		GlStateManager.disableCull();
@@ -193,7 +187,7 @@ public class RenderLib {
 		GlStateManager.disableTexture2D();
 		if (phase) GlStateManager.disableDepth();
 		GlStateManager.color(r, g, b, a);
-		GlStateManager.translate(x, y, z);
+		GlStateManager.translate(x - renderManager.viewerPosX, y - renderManager.viewerPosY, z - renderManager.viewerPosZ);
 		GlStateManager.rotate(rot1, 1, 0, 0);
 		GlStateManager.rotate(rot2, 0, 0, 1);
 		GlStateManager.rotate(rot3, 0, 1, 0);
@@ -208,9 +202,6 @@ public class RenderLib {
 	}
 
 	public static void drawDisk(double x, double y, double z, float innerRadius, float outerRadius, int slices, int loops, float rot1, float rot2, float rot3, float r, float g, float b, float a, boolean phase, boolean linemode) {
-		x -= renderManager.viewerPosX;
-		y -= renderManager.viewerPosY;
-		z -= renderManager.viewerPosZ;
 		GlStateManager.pushMatrix();
 		GL11.glLineWidth(2.0F);
 		GlStateManager.disableCull();
@@ -220,7 +211,7 @@ public class RenderLib {
 		GlStateManager.disableTexture2D();
 		if (phase) GlStateManager.disableDepth();
 		GlStateManager.color(r, g, b, a);
-		GlStateManager.translate(x, y, z);
+		GlStateManager.translate(x - renderManager.viewerPosX, y - renderManager.viewerPosY, z - renderManager.viewerPosZ);
 		GlStateManager.rotate(rot1, 1, 0, 0);
 		GlStateManager.rotate(rot2, 0, 0, 1);
 		GlStateManager.rotate(rot3, 0, 1, 0);
@@ -250,7 +241,7 @@ public class RenderLib {
 		GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 		GlStateManager.translate(x - wx / 2 - renderManager.viewerPosX, y - renderManager.viewerPosY, z - wz / 2 - renderManager.viewerPosZ);
 		GlStateManager.color(red, green, blue, alpha);
-		worldRenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION_TEX);
+		worldRenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION);
 		worldRenderer.pos(0, 0, 0).endVertex();
 		worldRenderer.pos(wx, 0, 0).endVertex();
 		worldRenderer.pos(wx, h, 0).endVertex();
@@ -342,7 +333,7 @@ public class RenderLib {
 		GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 		GlStateManager.translate(x - wx / 2 - renderManager.viewerPosX, y - renderManager.viewerPosY, z - wz / 2 - renderManager.viewerPosZ);
 		GlStateManager.color(red, green, blue, alpha);
-		worldRenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION_TEX);
+		worldRenderer.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION);
 		worldRenderer.pos(0, 0, 0).endVertex();
 		worldRenderer.pos(0, h, 0).endVertex();
 		worldRenderer.pos(0, th, 0).endVertex();
